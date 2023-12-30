@@ -64,7 +64,7 @@ class ScrapeDoordashEmailCommand:
         order_text = decoded_msg[start:end]
 
         # Regex pattern to capture the quantity, item name (and options, if any), and price
-        pattern = r"(\d+)x(.+?)\$([\d\.]+)"
+        pattern = r"(\d+)x(.+?)(?<!\+)\$([\d\.]+)"
         matches = re.findall(pattern, order_text, re.DOTALL)
 
         order_items = []
