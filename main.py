@@ -12,10 +12,13 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 src_dir = os.path.join(current_dir, "src")
 sys.path.append(src_dir)
 
-from gmail import Gmail
-from gsheets import GoogleSheets
-from scrapers import scrape_doordash_command_factory
-from validators import validate_order_modifier_counts, validate_order_subtotal
+from gmail import Gmail  # noqa: E402
+from gsheets import GoogleSheets  # noqa: E402
+from scrapers import scrape_doordash_command_factory  # noqa: E402
+from validators import (  # noqa: E402
+    validate_order_modifier_counts,
+    validate_order_subtotal,
+)
 
 
 def load_from_cache(cache_path: str):
