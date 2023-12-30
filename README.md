@@ -1,13 +1,24 @@
 # Eats Data Miner
 Automate order data extraction from food delivery services like DoorDash, Uber Eats, and Menulog. This Python toolkit scrapes order details from Gmail confirmation emails, simplifying data collection for analysis or tracking
 
+## Project Setup
+
+### Directory Structure
+Before starting, set up the following directory structure in the project root:
+
+- `creds/`: For storing API credentials.
+- `data/`: For data files including results of `main.py`. 
+    - `cache/`: Subdirectory for cached data files.
+
+Note: The `creds/` and `data` directories are ignored in `.gitignore` for security and privacy reasons.
+
 ## Setting Up Credentials
 
 ### Gmail API Access
 To use the Gmail functionalities, you need to set up your Google API credentials. Follow the *'Set up your environment'* section in this [Python Quickstart guide](https://developers.google.com/gmail/api/quickstart/python), which contains a step-by-step walkthrough.
 
 After completing the guide::
-1. Create a new directory `creds/` at the root of the project.
+1. Ensure the `creds/` directory exists at the root of the project.
 2. Save your credentials as `creds/credentials.json`.
 
 Note: The `creds/` directory is ignored in `.gitignore` for security reasons. Ensure your personal credentials are not pushed to the repository.
