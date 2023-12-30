@@ -107,7 +107,12 @@ def process_orders(orders):
             order_items_lst.append(item_dict)
 
     orders_df = pd.DataFrame(orders_lst)
+    for col in orders_df.columns:
+        fill_value = 0 if col[0].isupper() else ""
+        orders_df.loc[:, col] = orders_df[col].fillna(fill_value)
+
     order_items_df = pd.DataFrame(order_items_lst)
+    order_items_df.fillna("", inplace=True)
 
     return orders_df, order_items_df
 
@@ -118,11 +123,9 @@ def export_results(orders_df, order_items_df, save_local_copy: bool = True):
         order_items_df.to_csv("data/order_items.csv", index=False)
     sheets = GoogleSheets()
     dest = "Doordash Orders"
-    orders_df.fillna("", inplace=True)
     sheets.write_df_to_sheet(
         orders_df, sheet_name=dest, worksheet_title="Orders", worksheet_index=0
     )
-    order_items_df.fillna("", inplace=True)
     sheets.write_df_to_sheet(
         order_items_df,
         sheet_name=dest,
