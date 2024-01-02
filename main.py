@@ -100,12 +100,12 @@ def validate_order(order, msg):
     return order
 
 
-def validate_results(orders, messsages):
+def validate_results(orders, messages):
     orders_clean = []
 
     num_processes = max(1, multiprocessing.cpu_count() - 2)
     with multiprocessing.Pool(processes=num_processes) as pool:
-        results = pool.starmap(validate_order, zip(orders, messsages))
+        results = pool.starmap(validate_order, zip(orders, messages))
 
     # Filter out None results (failed validations)
     orders_clean = [order for order in results if order is not None]
@@ -174,7 +174,7 @@ def main():
     )
 
     print("\n❓ Validating results...")
-    orders = validate_results(orders=orders, messsages=success_msgs)
+    orders = validate_results(orders=orders, messages=success_msgs)
 
     print("\n📤 Exporting results for analysis")
     orders_df, order_items_df = process_orders(orders=orders)
