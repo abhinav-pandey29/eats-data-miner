@@ -2,6 +2,7 @@
 Script to scrape food delivery orders from Gmail
 """
 import json
+import multiprocessing
 import os
 import sys
 
@@ -49,23 +50,37 @@ def get_messages(gmail: Gmail, query: str, use_cache: bool):
     return all_messages
 
 
+def extract_order(scrape_command, msg):
+    try:
+        order = scrape_command(message_obj=msg)
+        return "success", order, msg
+    except AssertionError:
+        return "invalid", None, msg
+    except Exception as error:
+        return "failed", str(error), msg
+
+
 def extract_orders(scrape_command, messages):
     orders = []
     success_msgs = []
     failed_msgs = []
     invalid_msgs = []
-    for msg in messages.values():
-        try:
-            order = scrape_command(message_obj=msg)
-        except AssertionError:
-            invalid_msgs.append(msg)
-            continue
-        except Exception as error:
-            failed_msgs.append({"error": str(error), "msg": msg})
-            continue
-        else:
-            orders.append(order)
+
+    num_processes = max(1, multiprocessing.cpu_count() - 2)
+    with multiprocessing.Pool(processes=num_processes) as pool:
+        results = pool.starmap(
+            extract_order, [(scrape_command, msg) for msg in messages.values()]
+        )
+
+    for result_type, order_or_error, msg in results:
+        if result_type == "success":
+            orders.append(order_or_error)
             success_msgs.append(msg)
+        elif result_type == "failed":
+            failed_msgs.append({"error": order_or_error, "msg": msg})
+        else:
+            invalid_msgs.append(msg)
+
     print(
         f"Total Messages: {len(messages)}"
         f"\n  - Success: {len(orders)}"
@@ -77,14 +92,24 @@ def extract_orders(scrape_command, messages):
     return orders, success_msgs
 
 
+def validate_order(order, msg):
+    if not validate_order_subtotal(order=order):
+        return None
+    if not validate_order_modifier_counts(order=order, msg=msg):
+        return None
+    return order
+
+
 def validate_results(orders, messsages):
     orders_clean = []
-    for order, msg in zip(orders, messsages):
-        if not validate_order_subtotal(order=order):
-            continue
-        if not validate_order_modifier_counts(order=order, msg=msg):
-            continue
-        orders_clean.append(order)
+
+    num_processes = max(1, multiprocessing.cpu_count() - 2)
+    with multiprocessing.Pool(processes=num_processes) as pool:
+        results = pool.starmap(validate_order, zip(orders, messsages))
+
+    # Filter out None results (failed validations)
+    orders_clean = [order for order in results if order is not None]
+
     return orders_clean
 
 
