@@ -32,8 +32,8 @@ class ScrapeDoordashEmailCommand:
         assert message_obj["snippet"].startswith(expected_som)
 
     @staticmethod
-    def extract_data(decoded_msg, pattern):
-        regex = re.compile(pattern)
+    def extract_data(decoded_msg, pattern, flags=0):
+        regex = re.compile(pattern, flags)
         match = re.search(regex, decoded_msg)
         return match.group(1).strip() if match else None
 
@@ -42,14 +42,16 @@ class ScrapeDoordashEmailCommand:
 
     def extract_est_delivery_time(self, decoded_msg):
         return self.extract_data(
-            decoded_msg, r"The estimated delivery time for your order\n is (.+)\."
+            decoded_msg,
+            r"The estimated delivery time for your order\s* is(.+?)\.",
+            re.DOTALL,
         )
 
     def extract_store_name(self, decoded_msg):
-        return self.extract_data(decoded_msg, r"Paid with.+?\n(.*?)\nTotal")
+        return self.extract_data(decoded_msg, r"Paid with.+?\n(.*?)Total", re.DOTALL)
 
     def extract_delivery_address(self, decoded_msg):
-        return self.extract_data(decoded_msg, r"Your receipt \n(.+\s*)- For\:")
+        return self.extract_data(decoded_msg, r"Your receipt(.+?)- For\:", re.DOTALL)
 
     def extract_cost_summary(self, decoded_msg: str):
         pattern = re.compile(r"([A-Za-z\s]+) \$([\d\.]+)")
