@@ -30,11 +30,10 @@ def doordash_validator(func):
 
 @doordash_validator
 def validate_order_subtotal(order):
-    try:
-        actual_subtotal = order["cost_summary"]["Subtotal"]
-    except KeyError:
-        actual_subtotal = order["cost_summary"]["Estimated Subtotal"]
+    summary_dict = order["cost_summary"]
+    actual_subtotal = summary_dict.get("Subtotal") or summary_dict.get("Estimated Subtotal")
     calc_subtotal = sum([item["price"] for item in order["items"]])
+    assert actual_subtotal
     assert round(actual_subtotal, 2) == round(calc_subtotal, 2)
 
 
