@@ -4,7 +4,7 @@ Helper functions to validate scraped data
 import functools
 import re
 
-from utils import decode_raw_msg
+from utils import decode_raw_msg, get_modifier_bullet
 
 
 def doordash_validator(func):
@@ -44,6 +44,7 @@ def validate_order_modifier_counts(order, msg):
     end = re.search(r"Subtotal .+", decoded_msg).start()
     msg_filtered = decoded_msg[start:end]
 
-    actual_modifier_count = msg_filtered.count("\nâ€¢ ")
+    bullet_symbol = get_modifier_bullet(msg_filtered)
+    actual_modifier_count = msg_filtered.count(bullet_symbol)
     scraped_modifier_count = sum([len(item["modifiers"]) for item in order["items"]])
     assert actual_modifier_count == scraped_modifier_count

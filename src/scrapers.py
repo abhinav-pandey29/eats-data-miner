@@ -71,7 +71,8 @@ class ScrapeDoordashEmailCommand:
 
         order_items = []
         for quantity, item_str, price in matches:
-            item_parts = item_str.strip().replace("\n", "").split("â€¢ ")
+            bullet_symbol = utils.get_modifier_bullet(item_str)
+            item_parts = item_str.strip().replace("\n", "").split(bullet_symbol)
             if len(item_parts) > 1:
                 item, *modifiers = item_parts
             else:
