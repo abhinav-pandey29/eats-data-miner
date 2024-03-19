@@ -1,11 +1,15 @@
 """
 Utilities for Gmail Scrapers
 """
+
+from typing import Literal
 import base64
 import quopri
 from datetime import datetime
 
 import chardet
+
+BulletSymbol = Literal["â€¢ ", "• "]
 
 
 def decode_raw_msg(msg_raw: str, verbose: bool = False):
@@ -28,3 +32,8 @@ def decode_raw_msg(msg_raw: str, verbose: bool = False):
 def epoch2datetime(epoch_ms):
     epoch_ms = int(epoch_ms)
     return datetime.utcfromtimestamp(epoch_ms / 1000.0)
+
+
+def get_modifier_bullet(msg_decoded: str) -> BulletSymbol:
+    bullet = "â€¢ " if "â€¢ " in msg_decoded else "• "
+    return bullet
