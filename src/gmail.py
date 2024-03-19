@@ -3,6 +3,7 @@ Classes related to Gmail API
 """
 import os
 
+from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
@@ -25,25 +26,28 @@ class Gmail:
 
     def run_auth_flow(self):
         creds = None
-        # The file token.json stores the user's access and refresh tokens, and is
-        # created automatically when the authorization flow completes for the first
-        # time.
+        # Check if the token file exists
         if os.path.exists(self.TOKEN_PATH):
             creds = Credentials.from_authorized_user_file(self.TOKEN_PATH, self.SCOPES)
-        # If there are no (valid) credentials available, let the user log in.
+
+        # If the credentials are not valid or do not exist, log in.
+        # This includes checking if the credentials are expired or if there is no refresh token.
         if not creds or not creds.valid:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                self.CREDENTIALS_PATH, self.SCOPES
-            )
-            creds = flow.run_local_server(port=0)
+            if creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request())
+            else:
+                flow = InstalledAppFlow.from_client_secrets_file(
+                    self.CREDENTIALS_PATH, self.SCOPES
+                )
+                creds = flow.run_local_server(port=0)
             # Save the credentials for the next run
             with open(self.TOKEN_PATH, "w") as token:
                 token.write(creds.to_json())
 
-        assert isinstance(creds, Credentials)
-        self.credentials = creds
-
-        return self.credentials
+        assert isinstance(
+            creds, Credentials
+        ), "Problem with authentication credentials."
+        return creds
 
     def search(self, query: str):
         results = []
