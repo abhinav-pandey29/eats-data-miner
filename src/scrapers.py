@@ -54,8 +54,12 @@ class ScrapeDoordashEmailCommand:
         return self.extract_data(decoded_msg, r"Your receipt(.+?)- For\:", re.DOTALL)
 
     def extract_cost_summary(self, decoded_msg: str):
+        # Extract text segment containing cost summary
+        start = re.search(r"Subtotal .+", decoded_msg).start()
+        decoded_msg_slice = decoded_msg[start:]
+        
         pattern = re.compile(r"([A-Za-z\s]+) \$([\d\.]+)")
-        matches = pattern.findall(decoded_msg)
+        matches = pattern.findall(decoded_msg_slice)
         cost_summary = {label.strip(): float(value) for label, value in matches}
         return cost_summary
 

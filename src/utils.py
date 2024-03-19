@@ -36,5 +36,4 @@ def epoch2datetime(epoch_ms):
 
 def get_modifier_bullet(msg_decoded: str) -> BulletSymbol:
     bullet = "â€¢ " if "â€¢ " in msg_decoded else "• "
-    assert isinstance(bullet, BulletSymbol)
     return bullet
