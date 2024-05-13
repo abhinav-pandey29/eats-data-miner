@@ -3,6 +3,7 @@ Gmail Scrapers
 
 All scraper classes should be added here.
 """
+
 import re
 
 import utils
@@ -57,8 +58,8 @@ class ScrapeDoordashEmailCommand:
         # Extract text segment containing cost summary
         start = re.search(r"Subtotal .+", decoded_msg).start()
         decoded_msg_slice = decoded_msg[start:]
-        
-        pattern = re.compile(r"([A-Za-z\s]+) \$([\d\.]+)")
+
+        pattern = re.compile(r"([A-Za-z\s]+) A*\$([\d\.]+)")
         matches = pattern.findall(decoded_msg_slice)
         cost_summary = {label.strip(): float(value) for label, value in matches}
         return cost_summary
