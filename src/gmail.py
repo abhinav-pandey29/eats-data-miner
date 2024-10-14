@@ -1,8 +1,10 @@
 """
 Classes related to Gmail API
 """
+
 import os
 
+from google.auth.exceptions import RefreshError
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -21,7 +23,14 @@ class Gmail:
     SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
 
     def __init__(self):
-        self.credentials = self.run_auth_flow()
+        try:
+            self.credentials = self.run_auth_flow()
+        except RefreshError as e:
+            print(f"Authentication failed: {e}")
+            if os.path.exists(self.TOKEN_PATH):
+                os.remove(self.TOKEN_PATH)
+            self.credentials = self.run_auth_flow()
+
         self.client = build("gmail", "v1", credentials=self.credentials)
 
     def run_auth_flow(self):
