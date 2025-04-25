@@ -1,5 +1,31 @@
 # Eats Data Miner
-Automate order data extraction from food delivery services like DoorDash, Uber Eats, and Menulog. This Python toolkit scrapes order details from Gmail confirmation emails, simplifying data collection for analysis or tracking
+
+If you’ve ever found yourself overspending on food delivery apps like DoorDash, Uber Eats, and Menulog, you’re not alone. Tracking those expenses can quickly become a messy chore. That’s why I created **Eats Data Miner**!
+
+**Eats Data Miner** is designed to automatically extract and organize your DoorDash order receipts into clean, structured data you can easily track and analyze.
+
+---
+
+### 📊 Looker Studio Dashboard
+
+<p align="center">
+  <img src="assets/dashboard-screenshot-1.png" alt="Looker Studio Mobile Dashboard" width="800" height="300"/>
+</p>
+
+_Real-time insights into spending trends, most-ordered items, and vendor breakdowns — optimized for mobile._
+
+---
+
+### Here’s how it works:
+
+1. **Connect to Gmail** – Authenticates with the Gmail API to fetch order confirmation emails.
+2. **Extract** – Parses vendor, items, pricing, fees, and delivery details from email content using a custom-built scraper.
+3. **Transform** – Flattens and organizes the extracted data into two clean tables: `Orders` and `Order Items`.
+4. **Validate** – Applies built-in rule checks to catch parsing errors early and ensure data quality.
+5. **Load** – Saves results locally and updates a connected Google Sheets workbook for easy access.
+6. **Visualize** – Connects to a Looker Studio dashboard that automatically refreshes from the Sheet, providing real-time spending insights, ordering trends, and item breakdowns.
+
+---
 
 ## Project Setup
 
@@ -9,6 +35,7 @@ Before starting, set up the following directory structure in the project root:
 - `creds/`: For storing API credentials.
 - `data/`: For data files including results of `main.py`. 
     - `cache/`: Subdirectory for cached data files.
+  - `cache/`: Subdirectory for cached data files.
 
 Note: The `creds/` and `data` directories are ignored in `.gitignore` for security and privacy reasons.
 
