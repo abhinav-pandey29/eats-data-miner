@@ -1,73 +1,95 @@
 # Eats Data Miner
 
-If you’ve ever found yourself overspending on food delivery apps like DoorDash, Uber Eats, and Menulog, you’re not alone. Tracking those expenses can quickly become a messy chore. That’s why I created **Eats Data Miner**!
+_A Gmail-to-Google Sheets automation for food delivery expense tracking._
 
-**Eats Data Miner** is designed to automatically extract and organize your DoorDash order receipts into clean, structured data you can easily track and analyze.
+If you’ve ever found yourself overspending on food delivery apps like DoorDash, Uber Eats, and Menulog, you’re not alone. Wouldn't it be nice if you could easily track those expenses?
 
----
+That’s why I created **Eats Data Miner** - an automated way to extract and organize your DoorDash order receipts into clean spreadsheets to simplify tracking your food delivery habits and spending.
 
-### 📊 Looker Studio Dashboard
+Built with **Python**, **Gmail API**, **Google Sheets API**, and **Looker Studio**, Eats Data Miner:
+
+- Fetches DoorDash order confirmation emails from your Gmail Inbox,
+- Extracts restaurants, items, costs, and delivery addresses using a custom-built scraper,
+- Structures the data into clean, organized Google Sheets tables,
+- Connects the data to a Looker Studio dashboard for insights into your spending patterns.
+
+### 📊 Dashboard Preview
 
 <p align="center">
-  <img src="assets/dashboard-screenshot-1.png" alt="Looker Studio Mobile Dashboard" width="800" height="300"/>
+  <img src="assets/dashboard-hero.png" alt="Looker Studio Mobile Dashboard" width="auto" height="500"/>
 </p>
 
-_Real-time insights into spending trends, most-ordered items, and vendor breakdowns — optimized for mobile._
+<p align="center">
+  <em>Understanding my food delivery habits with Python and Looker Studio.</em>
+</p>
 
 ---
 
-### Here’s how it works:
+## 📚 Table of Contents
 
-1. **Connect to Gmail** – Authenticates with the Gmail API to fetch order confirmation emails.
-2. **Extract** – Parses vendor, items, pricing, fees, and delivery details from email content using a custom-built scraper.
-3. **Transform** – Flattens and organizes the extracted data into two clean tables: `Orders` and `Order Items`.
-4. **Validate** – Applies built-in rule checks to catch parsing errors early and ensure data quality.
-5. **Load** – Saves results locally and updates a connected Google Sheets workbook for easy access.
-6. **Visualize** – Connects to a Looker Studio dashboard that automatically refreshes from the Sheet, providing real-time spending insights, ordering trends, and item breakdowns.
+- [How it works](#heres-how-it-works)
+- [Setup Instructions](#project-setup)
+- [Running the Script](#running-the-script)
+- [Sample Output](#sample-output)
 
 ---
 
-## Project Setup
+## Here’s how it works:
 
-### Directory Structure
-Before starting, set up the following directory structure in the project root:
+Eats Data Miner follows a simple six-step process:
 
-- `creds/`: For storing API credentials.
-- `data/`: For data files including results of `main.py`. 
-    - `cache/`: Subdirectory for cached data files.
-  - `cache/`: Subdirectory for cached data files.
+1. **Connect to Gmail** – Authenticate and fetch order confirmation emails.
+2. **Extract** – Parse vendor, item, pricing, fees, and delivery details.
+3. **Transform** – Flatten and organize extracted data into clean tables.
+4. **Validate** – Apply rule checks to catch parsing errors early.
+5. **Load** – Save results to local CSV files and a connected Google Sheets workbook (`Orders` and `OrderItems` tables).
+6. **Visualize** – Connect to a Looker Studio dashboard for instant insights.
 
-Note: The `creds/` and `data` directories are ignored in `.gitignore` for security and privacy reasons.
+## Setup Instructions
 
-## Setting Up Credentials
+[TODO]
 
-### Gmail API Access
-To use the Gmail functionalities, you need to set up your Google API credentials. Follow the *'Set up your environment'* section in this [Python Quickstart guide](https://developers.google.com/gmail/api/quickstart/python), which contains a step-by-step walkthrough.
+## Running the Script
 
-After completing the guide::
-1. Ensure the `creds/` directory exists at the root of the project.
-2. Save your credentials as `creds/credentials.json`.
+Once your credentials are set up, running Eats Data Miner is simple:
 
-Note: The `creds/` directory is ignored in `.gitignore` for security reasons. Ensure your personal credentials are not pushed to the repository.
+```bash
+python main.py
+```
 
-### Google Sheets API Access
-To utilize the Google Sheets functionalities in the project, configure Google Sheets API credentials:
+This will:
 
-1. Navigate to the [Google Developer Console](https://console.developers.google.com/).
-2. Create a new project or select an existing one.
-3. Enable the `Google Sheets API` and the `Google Drive API` for your project.
-4. Go to the "Credentials" page and click on "Create Credentials". Choose "Service account".
-5. Fill in the service account details (optional, grant it a role with appropriate permissions)
-6. Once the service account is created, click on it to manage keys.
-7. Add a new key of type JSON. The key file will be downloaded automatically.
-8. Rename this file to `sheets_serviceaccount.json` and place it in the `creds/` directory of your project.
+- Authenticate your Gmail account,
+- Fetch and parse your DoorDash order confirmation emails,
+- Validate and clean the extracted data,
+- Save results to `orders.csv` and `order_items.csv`,
+- Update your connected Google Sheet,
+- Refresh your Looker Studio dashboard with the latest data.
 
-Note: Like with the Gmail API, the `creds/` directory is part of the `.gitignore` file to prevent sensitive data from being pushed to the public repository. Ensure you do not upload your personal credentials.
+## Sample Output
 
-### Set up Access to Doordash Orders Spreadsheet
+Once the script finishes running, you'll get two structured datasets:
 
-1. Go to [Google Sheets](https://docs.google.com/spreadsheets/).
-2. Create a blank spreadsheet and rename it "Doordash Orders".
-3. Click on "Share" and add your service account email as an Editor. This can be found as the value associated with `client_email` in the `sheets_serviceaccount.json` file you created in the previous step.
+### Orders Table (orders.csv)
 
-You're all set up and ready to go!
+| Message ID       | Date       | Store Name | Delivery Address                           | ETA               | Subtotal | Taxes | Fees | Tip  | Total |
+| ---------------- | ---------- | ---------- | ------------------------------------------ | ----------------- | -------- | ----- | ---- | ---- | ----- |
+| 18d4a327ee09e5b6 | 2024-01-27 | McDonald's | 161 Example St, Sydney NSW 2000, Australia | 6:19 pm – 6:29 pm | 64.70    | 0.00  | 0.00 | 7.76 | 72.46 |
+
+---
+
+### Order Items Table (order_items.csv)
+
+| Order Message ID | Item Name                                   | Qty | Modifiers                                                         | Price |
+| ---------------- | ------------------------------------------- | --- | ----------------------------------------------------------------- | ----- |
+| 18d4a327ee09e5b6 | McSpicy Burger (Chicken & Fish)             | 1   | MEDIUM (4198 kJ.) \| Fries (1240 kJ.) \| Coke Zero Sugar (10 kJ.) | 17.20 |
+| 18d4a327ee09e5b6 | McCrispy Deluxe (Individual Items)          | 1   | No Diced Lettuce Mix \| No Sliced Tomato \| Extra Signature Sauce | 11.40 |
+| 18d4a327ee09e5b6 | McSpicy Burger (Individual Items)           | 1   | No Diced Lettuce Mix                                              | 11.55 |
+| 18d4a327ee09e5b6 | Chicken McNuggets - 10pc (Individual Items) | 1   | Aioli Sauce Tub (775 kJ.) \| Barbecue Sauce (195 kJ.)             | 10.40 |
+| 18d4a327ee09e5b6 | Fries (Snacks & Fries)                      | 2   | SMALL (860 kJ.)                                                   | 7.10  |
+| 18d4a327ee09e5b6 | Coke Zero Sugar (Soft Drinks)               | 1   | SMALL (8 kJ.) \| No Ice                                           | 4.50  |
+| 18d4a327ee09e5b6 | Big Mac Special Sauce (Condiments)          | 3   |                                                                   | 2.55  |
+
+---
+
+The Google Sheets workbook is also updated with these tables, keeping your data easily accessible for your connected dashboard.
