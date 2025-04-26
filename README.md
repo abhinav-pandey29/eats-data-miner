@@ -2,25 +2,29 @@
 
 _A Gmail-to-Google Sheets automation for food delivery expense tracking._
 
-If you’ve ever found yourself overspending on food delivery apps like DoorDash, Uber Eats, and Menulog, you’re not alone. Wouldn't it be nice if you could easily track those expenses?
+## Overview
 
-That’s why I created **Eats Data Miner** - an automated way to extract and organize your DoorDash order receipts into clean spreadsheets to simplify tracking your food delivery habits and spending.
+Like many people, I found myself spending way more on DoorDash orders than I realized. Tracking those expenses manually was tedious and limited.
 
-Built with **Python**, **Gmail API**, **Google Sheets API**, and **Looker Studio**, Eats Data Miner:
+So I created **Eats Data Miner** — an end-to-end data pipeline project that automates DoorDash expense tracking.
 
-- Fetches DoorDash order confirmation emails from your Gmail Inbox,
-- Extracts restaurants, items, costs, and delivery addresses using a custom-built scraper,
-- Structures the data into clean, organized Google Sheets tables,
-- Connects the data to a Looker Studio dashboard for insights into your spending patterns.
+It uses **Python**, **Gmail API**, **Google Sheets API**, and **Looker Studio** to fetch, organize, and visualize DoorDash spending data.
+
+At a high level, Eats Data Miner:
+
+- Fetches DoorDash _order confirmation_ emails from your Gmail Inbox,
+- Extracts order details from email contents (eg. _restaurant_, _items_, _costs_, _date_, etc),
+- Structures the data into clean, _connected_ Google Sheets tables,
+- Automatically updates a _customizeable_ dashboard for spending insights.
 
 ### 📊 Dashboard Preview
 
-<p align="center">
-  <img src="assets/dashboard-hero.png" alt="Looker Studio Mobile Dashboard" width="auto" height="500"/>
+<p align="left">
+  <em>Tracking food delivery habits with Python and Looker Studio.</em>
 </p>
 
 <p align="center">
-  <em>Understanding my food delivery habits with Python and Looker Studio.</em>
+  <img src="assets/dashboard-hero.png" alt="Looker Studio Mobile Dashboard" width="auto" height="500"/>
 </p>
 
 ---
