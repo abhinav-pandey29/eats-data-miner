@@ -12,10 +12,10 @@ It uses **Python**, **Gmail API**, **Google Sheets API**, and **Looker Studio** 
 
 At a high level, Eats Data Miner:
 
-- Fetches DoorDash _order confirmation_ emails from your Gmail Inbox,
+- Fetches DoorDash _order confirmation_ emails ([see example below](#sample-input-doordash-order-confirmation-email)) from your Gmail Inbox,
 - Extracts order details from email contents (eg. _restaurant_, _items_, _costs_, _date_, etc),
 - Structures the data into clean, _connected_ Google Sheets tables,
-- Automatically updates a _customizeable_ dashboard for spending insights.
+- Automatically updates a _customizable_ dashboard for spending insights.
 
 ### 📊 Dashboard Preview
 
@@ -36,6 +36,7 @@ At a high level, Eats Data Miner:
 - [How it works](#heres-how-it-works)
 - [Setup Instructions](#setup-instructions)
 - [Running the Script](#running-the-script)
+- [Sample Input: DoorDash Order Confirmation Email](#sample-input-doordash-order-confirmation-email)
 - [Sample Output](#sample-output)
 
 ---
@@ -79,7 +80,7 @@ You can view the full setup guide [here](./SETUP_INSTRUCTIONS.md), or jump direc
 
 ## Running the Script
 
-Once your credentials are set up, running Eats Data Miner is simple:
+Once your credentials are set up, running Eats Data Miner is simple. Below is how to execute the script, followed by examples of the input it processes and the structured output it generates.
 
 ```bash
 python main.py
@@ -94,9 +95,23 @@ This will:
 - Update your connected Google Sheet,
 - Refresh your Looker Studio dashboard with the latest data.
 
+## Sample Input: DoorDash Order Confirmation Email
+
+<p align="left">
+  <em>Screenshot of a DoorDash order confirmation email processed by the script.</em>
+</p>
+
+<p align="center">
+  <img src="assets/example-order-confirmation-email.png"
+       alt="Sample DoorDash order-confirmation email"
+       width="auto" height="600"/>
+</p>
+
+---
+
 ## Sample Output
 
-Once the script finishes running, you'll get two structured datasets:
+After processing the above email, the script generates the following structured datasets:
 
 > The Google Sheets workbook is also updated with these tables, keeping data easily accessible for the connected dashboard.
 
