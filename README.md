@@ -31,8 +31,10 @@ At a high level, Eats Data Miner:
 
 ## 📚 Table of Contents
 
+**Quick Navigation**
+
 - [How it works](#heres-how-it-works)
-- [Setup Instructions](#project-setup)
+- [Setup Instructions](#setup-instructions)
 - [Running the Script](#running-the-script)
 - [Sample Output](#sample-output)
 
@@ -51,7 +53,29 @@ Eats Data Miner follows a simple six-step process:
 
 ## Setup Instructions
 
-[TODO]
+To run this project, you will need to:
+
+- Create a `creds/` directory in the project root,
+- Set up Gmail API access,
+- Set up Google Sheets API access,
+- Add your credentials JSON files into the `creds/` directory,
+- Create your destination Google Sheet ("Doordash Orders"),
+- Share the Sheet with your service account email,
+- Set up a connected Looker Studio dashboard.
+
+You can view the full setup guide [here](./SETUP_INSTRUCTIONS.md), or jump directly to a specific section:
+
+**Quick Navigation**
+
+- [Prerequisites](./SETUP_INSTRUCTIONS.md#1-prerequisites)
+- [Clone the Repository & Create Project Folders](./SETUP_INSTRUCTIONS.md#2-clone-the-repository--create-the-project-folders)
+- [Set up Gmail API access](./SETUP_INSTRUCTIONS.md#3-set-up-gmail-api-access)
+- [Set up Google Sheets API access](./SETUP_INSTRUCTIONS.md#4-set-up-google-sheets-api-access)
+- [Create and Share the Destination Google Sheet](./SETUP_INSTRUCTIONS.md#5-create--share-the-destination-google-sheet)
+- [Prepare the Looker Studio Dashboard](./SETUP_INSTRUCTIONS.md#6-prepare-the-looker-studio-dashboard)
+- [Install Dependencies](./SETUP_INSTRUCTIONS.md#7-install-dependencies)
+- [Run the Pipeline](./SETUP_INSTRUCTIONS.md#8-run-the-pipeline)
+- [Troubleshooting](./SETUP_INSTRUCTIONS.md#9-troubleshooting)
 
 ## Running the Script
 
