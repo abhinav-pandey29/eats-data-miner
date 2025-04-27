@@ -117,9 +117,9 @@ After processing the above email, the script generates the following structured 
 
 ### Orders Table (orders.csv)
 
-| Message ID       | Date       | Store Name | Delivery Address                           | ETA               | Subtotal | Taxes | Fees | Tip  | Total |
-| ---------------- | ---------- | ---------- | ------------------------------------------ | ----------------- | -------- | ----- | ---- | ---- | ----- |
-| 18d4a327ee09e5b6 | 2024-01-27 | McDonald's | 161 Example St, Sydney NSW 2000, Australia | 6:19 pm – 6:29 pm | 64.70    | 0.00  | 0.00 | 7.76 | 72.46 |
+| Message ID       | Date       | Store Name | Delivery Address                           | ETA               | Total Charged | Subtotal | Taxes | Delivery Fee | Service Fee | Tip  |
+| ---------------- | ---------- | ---------- | ------------------------------------------ | ----------------- | ------------- | -------- | ----- | ------------ | ----------- | ---- |
+| 18d4a327ee09e5b6 | 2024-01-27 | McDonald's | 161 Example St, Sydney NSW 2000, Australia | 6:19 pm – 6:29 pm | 72.46         | 64.70    | 0.00  | 0.00         | 7.76        | 0.00 |
 
 ---
 
@@ -127,12 +127,12 @@ After processing the above email, the script generates the following structured 
 
 | Order Message ID | Item Name                                   | Qty | Modifiers                                                         | Price |
 | ---------------- | ------------------------------------------- | --- | ----------------------------------------------------------------- | ----- |
-| 18d4a327ee09e5b6 | McSpicy Burger (Chicken & Fish)             | 1   | MEDIUM (4198 kJ.) \| Fries (1240 kJ.) \| Coke Zero Sugar (10 kJ.) | 17.20 |
+| 18d4a327ee09e5b6 | Big Mac Special Sauce (Condiments)          | 3   |                                                                   | 2.55  |
+| 18d4a327ee09e5b6 | Chicken McNuggets - 10pc (Individual Items) | 1   | Aioli Sauce Tub (775 kJ.) \| Barbecue Sauce (195 kJ.)             | 10.40 |
+| 18d4a327ee09e5b6 | Coke Zero Sugar (Soft Drinks)               | 1   | SMALL (8 kJ.) \| No Ice                                           | 4.50  |
+| 18d4a327ee09e5b6 | Fries (Snacks & Fries)                      | 2   | SMALL (860 kJ.)                                                   | 7.10  |
 | 18d4a327ee09e5b6 | McCrispy Deluxe (Individual Items)          | 1   | No Diced Lettuce Mix \| No Sliced Tomato \| Extra Signature Sauce | 11.40 |
 | 18d4a327ee09e5b6 | McSpicy Burger (Individual Items)           | 1   | No Diced Lettuce Mix                                              | 11.55 |
-| 18d4a327ee09e5b6 | Chicken McNuggets - 10pc (Individual Items) | 1   | Aioli Sauce Tub (775 kJ.) \| Barbecue Sauce (195 kJ.)             | 10.40 |
-| 18d4a327ee09e5b6 | Fries (Snacks & Fries)                      | 2   | SMALL (860 kJ.)                                                   | 7.10  |
-| 18d4a327ee09e5b6 | Coke Zero Sugar (Soft Drinks)               | 1   | SMALL (8 kJ.) \| No Ice                                           | 4.50  |
-| 18d4a327ee09e5b6 | Big Mac Special Sauce (Condiments)          | 3   |                                                                   | 2.55  |
+| 18d4a327ee09e5b6 | McSpicy Burger (Chicken & Fish)             | 1   | MEDIUM (4198 kJ.) \| Fries (1240 kJ.) \| Coke Zero Sugar (10 kJ.) | 17.20 |
 
 ---
