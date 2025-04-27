@@ -98,6 +98,8 @@ This will:
 
 Once the script finishes running, you'll get two structured datasets:
 
+> The Google Sheets workbook is also updated with these tables, keeping data easily accessible for the connected dashboard.
+
 ### Orders Table (orders.csv)
 
 | Message ID       | Date       | Store Name | Delivery Address                           | ETA               | Subtotal | Taxes | Fees | Tip  | Total |
@@ -119,5 +121,3 @@ Once the script finishes running, you'll get two structured datasets:
 | 18d4a327ee09e5b6 | Big Mac Special Sauce (Condiments)          | 3   |                                                                   | 2.55  |
 
 ---
-
-The Google Sheets workbook is also updated with these tables, keeping your data easily accessible for your connected dashboard.
